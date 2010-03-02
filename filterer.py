@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 # Copyright (c) 2009 Emiliano Pastorino <emilianopastorino@gmail.com>
-#
 # Permission is hereby granted, free of charge, to any
 # person obtaining a copy of this software and associated
 # documentation files (the "Software"), to deal in the
@@ -99,7 +98,12 @@ class TsharkThread(threading.Thread):
 		output = output.split('\n')
 		if output[0] is not '':
 			for j in output:
-				time,rate,size = j.split('\t')
+				try:
+					time,rate,size = j.split('\t')
+				except:
+					time=0
+					rate=0
+					size=0
 				if rate in datarates_b:
 					airsize = 192 + float(size) * 16 / float (rate)
 				elif rate in datarates_g:
